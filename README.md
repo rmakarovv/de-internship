@@ -5,6 +5,7 @@
 * [Docker](https://docs.docker.com/engine/install/ubuntu/)
 * [docker-compose](https://docs.docker.com/compose/) or just enable _**Docker Compose v2**_
 * [jq](https://stedolan.github.io/jq/download/) for pretty formatting of JSON
+* Fork this Github repository
 
 ## Deployment
 * Build Docker images using `docker-compose`
