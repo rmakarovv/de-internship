@@ -116,8 +116,8 @@ services:
     image: minio/minio
     volumes:
       - ./minio_data:/data
-#    ports:
-#      - "9000:9000"
+    ports:
+      - "9000:9000"
     environment:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
