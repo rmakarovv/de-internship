@@ -16,6 +16,11 @@ How to Run:
 
 Expected output
 
- Schema |    Name     | Type  |  Owner   | Persistence | Access method | Size  | Description 
---------+-------------+-------+----------+-------------+---------------+-------+-------------
- public | tides_table | table | postgres | permanent   | heap          | 16 kB | 
+                                   List of relations
+ Schema | Name  | Type  |  Owner   | Persistence | Access method | Size  | Description 
+ 
+--------+-------+-------+----------+-------------+---------------+-------+-------------
+ 
+ public | table | table | postgres | permanent   | heap          | 16 kB | 
+
+(1 row)
