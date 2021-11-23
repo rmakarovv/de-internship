@@ -1,5 +1,4 @@
-{
-  "name": "mysql-source-logging",
+{"name": "mysql-source-logging",
   "config": {
     "connector.class": "io.debezium.connector.mysql.MySqlConnector",
     "database.hostname": "${file:/config.properties:db.hostname}",

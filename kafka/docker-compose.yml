@@ -137,3 +137,11 @@ services:
       /usr/bin/mc policy download myminio/datalake;
       exit 0;
       "
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres

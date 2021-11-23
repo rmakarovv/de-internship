@@ -1,0 +1,18 @@
+{
+  "name": "jdbc-sink-logging",
+  "config":
+  {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+    "topics": "logging.audit",
+    "connection.url": "jdbc:postgresql://postgres:5432/postgres",
+    "connection.user": "postgres",
+    "connection.password": "postgres",
+    "connection.ds.pool.size": 5,
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter.schema.registry.url": "http://schema-registry:8081",
+    "auto.create": true,
+    "insert.mode.databaselevel": true,
+    "table.name.format": "table"
+  }
+}
