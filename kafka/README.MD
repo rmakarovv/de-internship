@@ -1,37 +1,38 @@
-How to Run:
+How to Run the Project:
 
     docker-compose build
     
     docker-compose up -d
     
+Wait until create-connectors will finish and run this command:
+
     docker-compose start create-connectors
-    
-    curl -XGET "http://localhost:8083/connectors?expand=status" | jq
-    
-    docker exec -tiu postgres cc51a1112f8c psql
-    
-    \c
-    
-    SELECT * FROM test_table;
 
-Expected output;
+Now we are ready to enter ksql:
 
- id | userId |   action   |         msg          | category |                           browser                            |  insertDate   | __op | __tab
-le | __deleted | __env 
+    docker-compose exec ksqldb-cli ksql http://ksqldb:8088
 
-----+--------+------------+----------------------+----------+--------------------------------------------------------------+---------------+------+------
----+-----------+-------
 
-  1 | user-1 | LOGIN      | User logged in       |          | {"name": "Chrome", "major": "67", "version": "67.0.3396.99"} | 1637828848000 | r    | audit
-   | f         | dev
-   
-  2 | user-1 | NAVIGATION | Navigated to /search |          | {"name": "Chrome", "major": "67", "version": "67.0.3396.99"} | 1637828848000 | r    | audit
-   | f         | dev
-   
-  3 | user-1 | SEARCH     |                      |          | {"name": "Chrome", "major": "67", "version": "67.0.3396.99"} | 1637828848000 | r    | audit
-   | f         | dev
-   
-  4 | user-1 | LOGOUT     | User logged out      |          | {"name": "Chrome", "major": "67", "version": "67.0.3396.99"} | 1637828848000 | r    | audit
-   | f         | dev
-   
-(4 rows)
+    SET 'auto.offset.reset'='earliest';
+
+Create a stream:
+
+    create stream if not exists actions_stream (
+        id varchar,
+        userId varchar,
+        action varchar,
+        browser varchar
+    ) with (kafka_topic='logging.audit', VALUE_FORMAT='AVRO');
+
+Create a table:
+
+    create table action_counts with (kafka_topic='action_counts')
+        as select EXTRACTJSONFIELD(browser, '$.name'),
+                  count(action) as total_actions
+    from actions_stream
+    group by EXTRACTJSONFIELD(browser, '$.name')
+    emit changes;
+
+Print the result from the topic:
+
+    print action_counts from beginning;
