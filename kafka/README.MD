@@ -12,15 +12,26 @@ How to Run:
     
     \c
     
-    \dt+
+    SELECT * FROM test_table;
 
-Expected output
+Expected output;
 
-                                   List of relations
- Schema | Name  | Type  |  Owner   | Persistence | Access method | Size  | Description 
- 
---------+-------+-------+----------+-------------+---------------+-------+-------------
- 
- public | table | table | postgres | permanent   | heap          | 16 kB | 
+ id | userId |   action   |         msg          | category |                           browser                            |  insertDate   | __op | __tab
+le | __deleted | __env 
 
-(1 row)
+----+--------+------------+----------------------+----------+--------------------------------------------------------------+---------------+------+------
+---+-----------+-------
+
+  1 | user-1 | LOGIN      | User logged in       |          | {"name": "Chrome", "major": "67", "version": "67.0.3396.99"} | 1637828848000 | r    | audit
+   | f         | dev
+   
+  2 | user-1 | NAVIGATION | Navigated to /search |          | {"name": "Chrome", "major": "67", "version": "67.0.3396.99"} | 1637828848000 | r    | audit
+   | f         | dev
+   
+  3 | user-1 | SEARCH     |                      |          | {"name": "Chrome", "major": "67", "version": "67.0.3396.99"} | 1637828848000 | r    | audit
+   | f         | dev
+   
+  4 | user-1 | LOGOUT     | User logged out      |          | {"name": "Chrome", "major": "67", "version": "67.0.3396.99"} | 1637828848000 | r    | audit
+   | f         | dev
+   
+(4 rows)
